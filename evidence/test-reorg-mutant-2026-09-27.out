@@ -1,0 +1,47 @@
+SIMULATED NODE. No real chain is contacted; see the module docstring.
+artifact sha256 d2d6506942e9e4784d0d0e67e8da7020aae847db2801985dda50e600f5403c6f
+proof    sha256 89ebe5d34158ca642d05358c8b41c140903b46b03033b8c35ae42be0014214d8
+
+=== S0 no reorganisation
+outcome:        valid
+reason:         artifact is bound to a sufficiently confirmed Bitcoin block
+block_height:   968588
+confirmations:  154
+branch:         height=968588 state=verified ops=79
+branch:         height=968588 state=verified ops=83
+branch:         height=968635 state=verified ops=86
+adapter:        header_by_height(968588) -> header 6b60a17ca1fa2f94f79cbd663a426457d1101ea5221d73fee79c2e33367e8d2e
+adapter:        header_by_height(968635) -> header 835ddcd83c642846a6d6bac0060fe8ca85a167ee337c71634bc30a03334f3bf6
+adapter:        confirmations_on(968588) -> 154
+expected:       valid at 968588
+check:          PASS
+
+=== S1 block replaced between header read and depth read
+outcome:        unverifiable
+reason:         confirmation depth could not be established
+block_height:   968588
+confirmations:  None
+branch:         height=968588 state=verified ops=79
+branch:         height=968588 state=verified ops=83
+branch:         height=968635 state=verified ops=86
+adapter:        header_by_height(968588) -> header 6b60a17ca1fa2f94f79cbd663a426457d1101ea5221d73fee79c2e33367e8d2e
+adapter:        header_by_height(968635) -> header 835ddcd83c642846a6d6bac0060fe8ca85a167ee337c71634bc30a03334f3bf6
+adapter:        confirmations_on(968588) -> None: active chain changed at this height
+expected:       unverifiable at 968588
+check:          PASS
+
+=== S2 block replaced during depth read
+outcome:        valid
+reason:         artifact is bound to a sufficiently confirmed Bitcoin block
+block_height:   968588
+confirmations:  154
+branch:         height=968588 state=verified ops=79
+branch:         height=968588 state=verified ops=83
+branch:         height=968635 state=verified ops=86
+adapter:        header_by_height(968588) -> header 6b60a17ca1fa2f94f79cbd663a426457d1101ea5221d73fee79c2e33367e8d2e
+adapter:        header_by_height(968635) -> header 835ddcd83c642846a6d6bac0060fe8ca85a167ee337c71634bc30a03334f3bf6
+adapter:        confirmations_on(968588) -> 154
+expected:       unverifiable at 968588
+check:          FAIL
+
+summary: 2/3 PASS
